@@ -14,5 +14,5 @@ export const locationLog = sqliteTable("locationLog", {
   userId: int().notNull().references(() => user.id),
   locationId: int().notNull().references(() => location.id),
   createdAt: int().notNull().$default(() => Date.now()),
-  updatedAt: int().notNull().$default(() => Date.now().$onUpdate(() => Date.now())),
+  updatedAt: int().notNull().$default(() => Date.now().$onUpdate(() => Date.now())), // is working with Drizzle ORM
 });
