@@ -9,10 +9,7 @@
           Keep track of your travels with Travel Log, the ultimate travel companion app.
           Document your adventures, share your experiences, and create lasting memories.
         </p>
-        <button class="btn btn-accent">
-          Sign In With Github
-          <Icon name="tabler:brand-github" size="24" />
-        </button>
+        <AuthButton />
       </div>
     </div>
   </div>
