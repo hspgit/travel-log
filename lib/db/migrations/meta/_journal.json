@@ -5,15 +5,8 @@
     {
       "idx": 0,
       "version": "6",
-      "when": 1753667709606,
-      "tag": "0000_curved_darkhawk",
-      "breakpoints": true
-    },
-    {
-      "idx": 1,
-      "version": "6",
-      "when": 1753669653754,
-      "tag": "0001_tranquil_azazel",
+      "when": 1755532280884,
+      "tag": "0000_large_boomerang",
       "breakpoints": true
     }
   ]
