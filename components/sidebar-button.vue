@@ -19,10 +19,10 @@ const route = useRoute();
             :to="props.href"
             :class="{
                 'bg-base-200': route.path === props.href,
-                'justify-center': !props.showLabel,
-                'justify-start': props.showLabel,
+                'justify-center': !showLabel,
+                'justify-start': showLabel,
             }"
-            class="flex justify-start gap-2 p-2 hover:bg-base-300 hover:cursor-pointer flex-nowrap"
+            class="flex gap-2 p-2 hover:bg-base-300 hover:cursor-pointer flex-nowrap"
         >
             <Icon :name="props.icon" size="24" />
             <Transition name="grow">
