@@ -4,6 +4,13 @@ import type { MapPoint } from "~/lib/types";
 
 export const useMapStore = defineStore("useMapStore", () => {
     const mapPoints = ref<MapPoint[]>([]);
+    const selectedPoint = ref<MapPoint | null>(null);
+    const shouldFlyTo = ref(true);
+
+    function selectPointWithoutFlyTo(point: MapPoint | null) {
+        shouldFlyTo.value = false;
+        selectedPoint.value = point;
+    }
 
     async function init() {
         const { useMap } = await import("@indoorequal/vue-maplibre-gl");
@@ -31,10 +38,31 @@ export const useMapStore = defineStore("useMapStore", () => {
                 maxZoom: 10,
             });
         });
+
+        effect(() => {
+            if (selectedPoint.value) {
+                if (shouldFlyTo.value) {
+                    map.map?.flyTo({
+                        center: [selectedPoint.value.long, selectedPoint.value.lat],
+                        zoom: 6,
+                        speed: 1.2,
+
+                    });
+                }
+                shouldFlyTo.value = true;
+            }
+            else if (bounds) {
+                map.map?.fitBounds(bounds, {
+                    padding,
+                });
+            }
+        });
     }
 
     return {
         init,
         mapPoints,
+        selectedPoint,
+        selectPointWithoutFlyTo,
     };
 });
