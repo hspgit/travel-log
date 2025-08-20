@@ -44,7 +44,7 @@ export const useMapStore = defineStore("useMapStore", () => {
                 if (shouldFlyTo.value) {
                     map.map?.flyTo({
                         center: [selectedPoint.value.long, selectedPoint.value.lat],
-                        zoom: 6,
+                        zoom: 6, // maybe remove this
                         speed: 1.2,
 
                     });
