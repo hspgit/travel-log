@@ -14,6 +14,7 @@
         "prepare": "is-ci || husky"
     },
     "dependencies": {
+        "@indoorequal/vue-maplibre-gl": "^8.4.1",
         "@libsql/client": "^0.15.10",
         "@nuxt/eslint": "^1.7.0",
         "@nuxt/icon": "^1.15.0",
@@ -34,6 +35,7 @@
         "nuxt-csurf": "^1.6.5",
         "nuxt-maplibre": "^1.1.1",
         "pinia": "^3.0.3",
+        "sass-embedded": "^1.90.0",
         "slug": "^11.0.0",
         "tailwindcss": "^4.1.11",
         "vee-validate": "^4.15.1",
