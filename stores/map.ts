@@ -5,6 +5,7 @@ import type { MapPoint } from "~/lib/types";
 export const useMapStore = defineStore("useMapStore", () => {
     const mapPoints = ref<MapPoint[]>([]);
     const selectedPoint = ref<MapPoint | null>(null);
+    const addedPoint = ref<MapPoint | null>(null);
     const shouldFlyTo = ref(true);
 
     function selectPointWithoutFlyTo(point: MapPoint | null) {
@@ -40,6 +41,9 @@ export const useMapStore = defineStore("useMapStore", () => {
         });
 
         effect(() => {
+            if (addedPoint.value) {
+                return;
+            }
             if (selectedPoint.value) {
                 if (shouldFlyTo.value) {
                     map.map?.flyTo({
@@ -57,6 +61,18 @@ export const useMapStore = defineStore("useMapStore", () => {
                 });
             }
         });
+
+        watch(addedPoint, (newValue, oldValue) => {
+            if (newValue && !oldValue) {
+                map.map?.flyTo({
+                    center: [newValue?.long, newValue?.lat],
+                    zoom: 6,
+                    speed: 1.2,
+                });
+            }
+        }, {
+            immediate: true,
+        });
     }
 
     return {
@@ -64,5 +80,6 @@ export const useMapStore = defineStore("useMapStore", () => {
         mapPoints,
         selectedPoint,
         selectPointWithoutFlyTo,
+        addedPoint,
     };
 });
