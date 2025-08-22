@@ -142,7 +142,7 @@ function searchResultSelected(result: NominatimResult) {
                 :disabled="loading"
             /> -->
             <p class="text-xs text-gray-400">
-                Current location: {{ formatNumber(controlledValues.lat) }}, {{ formatNumber(controlledValues.long) }}
+                Current coordinates: {{ formatNumber(controlledValues.lat) }}, {{ formatNumber(controlledValues.long) }}
             </p>
             <p>
                 To set coordinates:

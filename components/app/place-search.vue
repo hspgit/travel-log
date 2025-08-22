@@ -99,7 +99,7 @@ function setLocation(result: NominatimResult) {
         <div v-if="loading" class="flex justify-center">
             <div class="loading loading-infinity loading-xl" />
         </div>
-        <div class="flex flex-col overflow-auto gap-2 max-h-55 mt-2">
+        <div class="flex flex-col overflow-auto gap-2 max-h-50 mt-2">
             <div
                 v-for="result in searchResults"
                 :key="result.place_id"

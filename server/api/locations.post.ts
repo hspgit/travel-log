@@ -29,7 +29,7 @@ export default defineAuthenticatedEventHandler(async (event) => {
     catch (e) {
         const error = e as DrizzleError;
 
-        const cause = error.cause;
+        const cause = error.cause as unknown as Error;
 
         if (cause.message === "SQLITE_CONSTRAINT: SQLite error: UNIQUE constraint failed: location.slug") {
             return sendError(event, createError({
