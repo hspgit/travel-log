@@ -34,7 +34,7 @@ const route = useRoute();
                 :class="iconColor"
             />
             <Transition name="grow">
-                <span v-if="props.showLabel">
+                <span v-if="props.showLabel" class="truncate">
                     {{ props.label }}
                 </span>
             </Transition>

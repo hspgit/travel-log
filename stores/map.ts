@@ -2,6 +2,8 @@ import type { LngLatBounds } from "maplibre-gl";
 
 import type { MapPoint } from "~/lib/types";
 
+import { CENTER_USA } from "~/lib/constants";
+
 export const useMapStore = defineStore("useMapStore", () => {
     const mapPoints = ref<MapPoint[]>([]);
     const selectedPoint = ref<MapPoint | null>(null);
@@ -25,6 +27,10 @@ export const useMapStore = defineStore("useMapStore", () => {
         effect(() => {
             const firstPoint = mapPoints.value[0];
             if (!firstPoint) {
+                map.map?.flyTo({
+                    center: CENTER_USA,
+                    zoom: 2,
+                });
                 return;
             }
             bounds = mapPoints.value.reduce((bounds, point) => {
@@ -48,7 +54,7 @@ export const useMapStore = defineStore("useMapStore", () => {
                 if (shouldFlyTo.value) {
                     map.map?.flyTo({
                         center: [selectedPoint.value.long, selectedPoint.value.lat],
-                        zoom: 6, // maybe remove this
+                        zoom: 15, // maybe remove this
                         speed: 1.2,
 
                     });

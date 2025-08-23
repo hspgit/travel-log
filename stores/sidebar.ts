@@ -2,7 +2,7 @@ import type { RouteLocationRaw } from "vue-router";
 
 import type { MapPoint } from "~/lib/types";
 
-export type SidebarItems = {
+export type SidebarItem = {
     id: string;
     label: string;
     icon: string;
@@ -12,9 +12,9 @@ export type SidebarItems = {
 };
 
 export const useSidebarStore = defineStore("useSidebarStore", () => {
-    const sidebarItems = ref<SidebarItems[]>([]);
+    const sidebarItems = ref<SidebarItem[]>([]);
     const loading = ref(false);
-    const sidebarTopItems = ref<SidebarItems[]>([]);
+    const sidebarTopItems = ref<SidebarItem[]>([]);
     return {
         loading,
         sidebarItems,

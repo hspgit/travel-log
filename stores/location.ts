@@ -30,7 +30,7 @@ export const useLocationStore = defineStore("useLocationStore", () => {
     effect(() => {
         if (locations.value && LOCATION_PAGES.has(route.name?.toString() || "")) {
             const mapPoints: MapPoint[] = [];
-            const sidebarItems: SidebarItems[] = [];
+            const sidebarItems: SidebarItem[] = [];
 
             locations.value.forEach((location) => {
                 const mapPoint = createMapPointFromLocation(location);
@@ -49,10 +49,37 @@ export const useLocationStore = defineStore("useLocationStore", () => {
             mapStore.mapPoints = mapPoints;
         }
         else if (currentLocation.value && CURRENT_LOCATION_PAGES.has(route.name?.toString() || "")) {
+            const mapPoints: MapPoint[] = [];
+            const sidebarItems: SidebarItem[] = [];
+
+            currentLocation.value.locationLogs.forEach((log) => {
+                const mapPoint = createMapPointFromLocationLog(log);
+                sidebarItems.push({
+                    id: `location-log-${log.id}`,
+                    label: log.name,
+                    icon: "tabler:map-pin-filled",
+                    to: { name: "dashboard-location-slug-id", params: { id: log.id } },
+                    mapPoint,
+                });
+                mapPoints.push(mapPoint);
+            });
+
+            sidebarStore.sidebarItems = sidebarItems;
+            if (mapPoints.length) {
+                mapStore.mapPoints = mapPoints;
+            }
+            else {
+                mapStore.mapPoints = [currentLocation.value];
+            }
+        }
+        else if (currentLocation.value && CURRENT_LOCATION_PAGES.has(route.name?.toString() || "")) {
             sidebarStore.sidebarItems = [];
             mapStore.mapPoints = [currentLocation.value];
         }
-        sidebarStore.loading = locationsStatus.value === "pending";
+        sidebarStore.loading = locationsStatus.value === "pending" || currentLoationStatus.value === "pending";
+        if (sidebarStore.loading) {
+            mapStore.mapPoints = [];
+        }
     });
 
     return {
