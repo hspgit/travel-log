@@ -56,4 +56,4 @@ export const InsertLocationLog = createInsertSchema(locationLog, {
 });
 
 export type InsertLocationLog = z.infer<typeof InsertLocationLog>;
-export type SelectLocationLog = typeof location.$inferInsert;
+export type SelectLocationLog = typeof locationLog.$inferSelect;
