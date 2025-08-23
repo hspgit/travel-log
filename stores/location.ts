@@ -27,7 +27,7 @@ export const useLocationStore = defineStore("useLocationStore", () => {
 
     const {
         data: currentLocationLog,
-        status: currentLoationLogStatus,
+        status: currentLocationLogStatus,
         refresh: refreshCurrentLocationLog,
         error: currentLocationLogError,
     } = useFetch<SelectLocationLog>(locationLogUrlWithSlugAndId, {
@@ -107,7 +107,7 @@ export const useLocationStore = defineStore("useLocationStore", () => {
         refreshCurrentLocation,
         currentLocationError,
         currentLocationLog,
-        currentLoationLogStatus,
+        currentLocationLogStatus,
         refreshCurrentLocationLog,
         currentLocationLogError,
     };
