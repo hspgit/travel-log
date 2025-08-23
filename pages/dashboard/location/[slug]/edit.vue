@@ -24,7 +24,8 @@ function onSubmitComplete() {
 
 <template>
     <LocationForm
-        v-if="locationStore.currentLoationStatus !== 'pending'"
+        v-if="locationStore.currentLoationStatus !== 'pending' && locationStore.currentLocation"
+        :zoom="15"
         :on-submit
         :initial-values="locationStore.currentLocation"
         submit-label="Update"
