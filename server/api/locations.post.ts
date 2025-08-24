@@ -15,10 +15,10 @@ export default defineAuthenticatedEventHandler(async (event) => {
     const existingLocation = await findLocationByName(result.data, event.context.user.id);
 
     if (existingLocation) {
-        return sendError(event, createError({
+        throw createError({
             statusCode: 409,
             statusMessage: `A location with the same name \"${result.data.name}\" already exists`,
-        }));
+        });
     }
 
     const slug = await findUniqueSlug(slugify(result.data.name));
@@ -32,10 +32,10 @@ export default defineAuthenticatedEventHandler(async (event) => {
         const cause = error.cause as unknown as Error;
 
         if (cause.message === "SQLITE_CONSTRAINT: SQLite error: UNIQUE constraint failed: location.slug") {
-            return sendError(event, createError({
+            throw createError({
                 statusCode: 409,
                 statusMessage: "Slug must be unique (the location name is used to generate the slug).",
-            }));
+            });
         }
 
         throw error;
