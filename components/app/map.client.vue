@@ -7,7 +7,7 @@ import { CENTER_USA } from "~/lib/constants";
 const colorMode = useColorMode();
 const mapStore = useMapStore();
 const style = computed(() =>
-    colorMode.value === "dark"
+    colorMode.value === "night"
         ? "/styles/dark.json"
         : "/styles/light.json",
     // : "https://tiles.openfreemap.org/styles/liberty"
@@ -80,7 +80,7 @@ onMounted(() => {
                     <Icon
                         name="tabler:map-pin-filled"
                         size="30"
-                        :class="isPointSelected(point, mapStore.selectedPoint) ? 'text-accent' : 'text-secondary'"
+                        :class="isPointSelected(point, mapStore.selectedPoint) ? 'text-accent' : 'text-primary'"
                     />
                 </div>
             </template>

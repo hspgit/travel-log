@@ -1,8 +1,15 @@
 @import "tailwindcss";
 @plugin "daisyui" {
     themes:
-        light --deafult,
-        dark --prefersdark;
+        winter --deafult,
+        night --prefersdark;
+}
+
+@plugin "daisyui/theme" {
+    name: "winter";
+    default: true;
+    --color-warning: #168075;
+    /* --color-warning: red; */
 }
 
 @custom-variant dark (&:where([data-theme=dark], [data-theme=dark] *));
@@ -19,7 +26,7 @@
     @apply p-4 min-h-72;
 }
 
-html[data-theme="dark"] {
+html[data-theme="night"] {
     .maplibregl-popup-content {
         @apply text-white bg-gray-800;
     }
