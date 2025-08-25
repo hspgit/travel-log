@@ -26,7 +26,7 @@ onMounted(() => {
             <p>Add locations to get started</p>
             <NuxtLink to="/dashboard/add" class="btn btn-primary w-40">
                 Add location
-                <Icon name="table tabler:circle-plus-filled" size="24" />
+                <Icon name="tabler:circle-plus-filled" size="24" />
             </NuxtLink>
         </div>
     </div>

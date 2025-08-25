@@ -21,7 +21,7 @@ function closeGallery() {
 </script>
 
 <template>
-    <div class="flex mt-2 gap-2 overflow-auto">
+    <div class="flex gap-2 overflow-auto mt-1">
         <div
             v-for="(image, index) in images"
             :key="image.id"
@@ -33,7 +33,7 @@ function closeGallery() {
                     :src="`${config.public.s3BucketUrl}/${image.key}`"
                     @click="showImage(index)"
                 >
-                <slot :image />
+                <slot :image name="card-bottom" />
             </div>
         </div>
         <VueEasyLightbox
