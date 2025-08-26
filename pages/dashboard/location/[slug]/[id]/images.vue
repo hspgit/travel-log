@@ -58,52 +58,87 @@ async function getChecksum(blob: Blob) {
     return btoa(String.fromCharCode(...new Uint8Array(hashBuffer)));
 }
 
+function calculateImageDimensions(imageWidth: number, imageHeight: number, maxSize: number = 1000) {
+    const aspectRatio = imageWidth / imageHeight;
+    let canvasWidth, canvasHeight;
+
+    if (imageWidth > imageHeight) {
+        canvasWidth = Math.min(maxSize, imageWidth);
+        canvasHeight = canvasWidth / aspectRatio;
+    }
+    else {
+        canvasHeight = Math.min(maxSize, imageHeight);
+        canvasWidth = canvasHeight * aspectRatio;
+    }
+
+    return {
+        width: Math.floor(canvasWidth),
+        height: Math.floor(canvasHeight),
+    };
+}
+
+async function resizeAndCompressImage(image: HTMLImageElement, targetWidth: number, targetHeight: number) {
+    const canvas = new OffscreenCanvas(targetWidth, targetHeight);
+    const ctx = canvas.getContext("2d");
+
+    if (!ctx) {
+        throw new Error("Failed to create canvas context");
+    }
+
+    ctx.drawImage(image, 0, 0, targetWidth, targetHeight);
+
+    return await canvas.convertToBlob({
+        type: "image/jpeg",
+        quality: 0.7,
+    });
+}
+
+async function uploadImageToServer(blob: Blob, checksum: string) {
+    const { fields, key, url } = await $csrfFetch(`/api/locations/${route.params.slug}/${route.params.id}/sign-image`, {
+        method: "POST",
+        body: {
+            contentLength: blob.size,
+            checksum,
+        },
+    });
+
+    const formData = new FormData();
+    Object.entries(fields).forEach(([key, value]) => {
+        formData.append(key, value as string);
+    });
+    formData.append("file", blob);
+
+    await $fetch(url, {
+        method: "POST",
+        body: formData,
+        headers: {
+            "x-amz-checksum-algorithm": "SHA256",
+        },
+    });
+
+    await $csrfFetch(`/api/locations/${route.params.slug}/${route.params.id}/image`, {
+        method: "POST",
+        body: { key },
+    });
+}
+
 async function uploadImage() {
     if (!image.value || !previewUrl.value) {
         return;
     }
+
     loading.value = true;
     errorMessage.value = "";
+
     const previewImage = new Image();
     previewImage.addEventListener("load", async () => {
-        const width = Math.min(1000, previewImage.width);
-        const resized = await createImageBitmap(previewImage, {
-            resizeWidth: width,
-        });
-        const canvas = new OffscreenCanvas(width, resized.height);
-        canvas.getContext("bitmaprenderer")?.transferFromImageBitmap(resized);
-        const blob = await canvas.convertToBlob({
-            type: "image/jpeg",
-            quality: 0.7,
-        });
-        const checksum = await getChecksum(blob);
-
         try {
-            const { fields, key, url } = await $csrfFetch(`/api/locations/${route.params.slug}/${route.params.id}/sign-image`, {
-                method: "POST",
-                body: {
-                    contentLength: blob.size,
-                    checksum,
-                },
-            });
-            const formData = new FormData();
-            Object.entries(fields).forEach(([key, value]) => {
-                formData.append(key, value as string);
-            });
-            formData.append("file", blob);
-            $fetch(url, {
-                method: "POST",
-                body: formData,
-                headers: {
-                    "x-amz-checksum-algorithm": "SHA256",
-                },
-            });
-            await $csrfFetch(`/api/locations/${route.params.slug}/${route.params.id}/image`, {
-                method: "POST",
-                body: {
-                    key,
-                },
-            });
+            const { width, height } = calculateImageDimensions(previewImage.width, previewImage.height);
+
+            const blob = await resizeAndCompressImage(previewImage, width, height);
+            const checksum = await getChecksum(blob);
+
+            await uploadImageToServer(blob, checksum);
 
             await locationStore.refreshCurrentLocationLog();
             image.value = null;
@@ -125,6 +160,7 @@ async function uploadImage() {
         }
         loading.value = false;
     });
+
     previewImage.src = previewUrl.value;
 }
 
