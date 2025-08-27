@@ -13,7 +13,7 @@ const authStore = useAuthStore();
                     Keep track of your journeys with Travel Log, your ultimate travel companion.
                     Record your adventures, share your stories, and create memories that last a lifetime.
                 </p>
-                <p class="font-bold pb-2">
+                <p v-if="!authStore.user" class="font-bold pb-2">
                     Sign in to get started
                 </p>
                 <AuthButton v-if="!authStore.user" />
