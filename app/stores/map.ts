@@ -1,8 +1,7 @@
+import type { MapPoint } from "~~/lib/types";
 import type { LngLatBounds } from "maplibre-gl";
 
-import type { MapPoint } from "~/lib/types";
-
-import { CENTER_USA } from "~/lib/constants";
+import { CENTER_USA } from "~~/lib/constants";
 
 export const useMapStore = defineStore("useMapStore", () => {
     const mapPoints = ref<MapPoint[]>([]);

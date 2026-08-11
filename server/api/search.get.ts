@@ -1,6 +1,7 @@
-import type { NominatimResult } from "~/lib/types";
+import type { NominatimResult } from "~~/lib/types";
 
-import { SearchSchema } from "~/lib/zod-schemas";
+import { SearchSchema } from "~~/lib/zod-schemas";
+
 import defineAuthenticatedEventHandler from "~/utils/define-authenticated-event-handler";
 
 export default defineAuthenticatedEventHandler(

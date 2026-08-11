@@ -1,8 +1,8 @@
 import { DeleteObjectCommand } from "@aws-sdk/client-s3";
+import { deleteLocationLogImage } from "~~/lib/db/queries/location-log-image";
+import env from "~~/lib/env";
 import { z } from "zod";
 
-import { deleteLocationLogImage } from "~/lib/db/queries/location-log-image";
-import env from "~/lib/env";
 import createS3Client from "~/utils/create-s3-client";
 import defineAuthenticatedEventHandler from "~/utils/define-authenticated-event-handler";
 

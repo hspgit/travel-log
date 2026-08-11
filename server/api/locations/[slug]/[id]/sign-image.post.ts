@@ -1,7 +1,7 @@
 import { createPresignedPost } from "@aws-sdk/s3-presigned-post";
+import env from "~~/lib/env";
 import { z } from "zod";
 
-import env from "~/lib/env";
 import createS3Client from "~/utils/create-s3-client";
 import defineAuthenticatedEventHandler from "~/utils/define-authenticated-event-handler";
 

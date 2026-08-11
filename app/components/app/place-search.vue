@@ -1,11 +1,9 @@
 <script lang="ts" setup>
+import type { NominatimResult } from "~~/lib/types";
 import type { FetchError } from "ofetch";
 
+import { SearchSchema } from "~~/lib/zod-schemas";
 import { Field } from "vee-validate";
-
-import type { NominatimResult } from "~/lib/types";
-
-import { SearchSchema } from "~/lib/zod-schemas";
 
 const emit = defineEmits<{
     resultSelected: [result: NominatimResult];

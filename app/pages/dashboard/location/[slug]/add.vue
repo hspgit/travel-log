@@ -1,7 +1,7 @@
 <script lang="ts" setup>
-import type { InsertLocationLog } from "~/lib/db/schema";
+import type { InsertLocationLog } from "~~/lib/db/schema";
 
-import { CENTER_USA } from "~/lib/constants";
+import { CENTER_USA } from "~~/lib/constants";
 
 const route = useRoute();
 const { currentLocation } = useLocationStore();

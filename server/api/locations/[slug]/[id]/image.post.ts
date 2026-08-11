@@ -1,9 +1,9 @@
 import { GetObjectCommand } from "@aws-sdk/client-s3";
+import { WAIT_FOR_S3 } from "~~/lib/constants";
+import { insertLocationLogImage } from "~~/lib/db/queries/location-log-image";
+import { InsertLocationLogImage } from "~~/lib/db/schema";
+import env from "~~/lib/env";
 
-import { WAIT_FOR_S3 } from "~/lib/constants";
-import { insertLocationLogImage } from "~/lib/db/queries/location-log-image";
-import { InsertLocationLogImage } from "~/lib/db/schema";
-import env from "~/lib/env";
 import createS3Client from "~/utils/create-s3-client";
 import defineAuthenticatedEventHandler from "~/utils/define-authenticated-event-handler";
 import sendZodError from "~/utils/send-zod-error";

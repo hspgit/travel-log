@@ -2,7 +2,7 @@ import { and, eq } from "drizzle-orm";
 
 import type { InsertLocationLog } from "../schema";
 
-import db from "..";
+import db from "../../db";
 import { locationLog } from "../schema";
 
 export async function findLocationLog(

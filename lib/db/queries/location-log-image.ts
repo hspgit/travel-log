@@ -2,7 +2,7 @@ import { and, eq } from "drizzle-orm";
 
 import type { InsertLocationLogImage } from "../schema";
 
-import db from "..";
+import db from "../../db";
 import { locationLogImage } from "../schema";
 
 export async function insertLocationLogImage(

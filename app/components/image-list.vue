@@ -1,5 +1,7 @@
 <script lang="ts" setup>
-import type { SelectLocationLogImage } from "~/lib/db/schema";
+import type { SelectLocationLogImage } from "~~/lib/db/schema";
+
+import VueEasyLightbox from "vue-easy-lightbox";
 
 const props = defineProps<{
     images: SelectLocationLogImage[];

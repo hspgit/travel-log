@@ -1,7 +1,7 @@
 <script lang="ts" setup>
-import { FetchError } from "ofetch";
+import type { SelectLocationLogImage } from "~~/lib/db/schema";
 
-import type { SelectLocationLogImage } from "~/lib/db/schema";
+import { FetchError } from "ofetch";
 
 import ImageList from "~/components/image-list.vue";
 

@@ -1,4 +1,5 @@
-import { findLocation } from "~/lib/db/queries/location";
+import { findLocation } from "~~/lib/db/queries/location";
+
 import defineAuthenticatedEventHandler from "~/utils/define-authenticated-event-handler";
 
 export default defineAuthenticatedEventHandler(async (event) => {

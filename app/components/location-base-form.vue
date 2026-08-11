@@ -1,13 +1,11 @@
 <script lang="ts" setup generic="T extends LatLongItem">
+import type { LatLongItem, NominatimResult } from "~~/lib/types";
 import type { FetchError } from "ofetch";
 import type { ZodSchema } from "zod";
 
 import { toTypedSchema } from "@vee-validate/zod";
+import { CENTER_USA } from "~~/lib/constants";
 import { useForm } from "vee-validate";
-
-import type { LatLongItem, NominatimResult } from "~/lib/types";
-
-import { CENTER_USA } from "~/lib/constants";
 
 const props = defineProps<{
     initialValues: T;

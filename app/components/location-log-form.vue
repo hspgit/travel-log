@@ -1,6 +1,6 @@
 <script lang="ts" setup>
-import { CENTER_USA } from "~/lib/constants";
-import { InsertLocationLog } from "~/lib/db/schema";
+import { CENTER_USA } from "~~/lib/constants";
+import { InsertLocationLog } from "~~/lib/db/schema";
 
 const props = defineProps<{
     initialValues?: InsertLocationLog;

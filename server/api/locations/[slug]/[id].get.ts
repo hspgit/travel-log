@@ -1,7 +1,7 @@
+import { findLocation } from "~~/lib/db/queries/location";
+import { findLocationLog } from "~~/lib/db/queries/location-log";
 import { z } from "zod";
 
-import { findLocation } from "~/lib/db/queries/location";
-import { findLocationLog } from "~/lib/db/queries/location-log";
 import defineAuthenticatedEventHandler from "~/utils/define-authenticated-event-handler";
 
 export default defineAuthenticatedEventHandler(async (event) => {

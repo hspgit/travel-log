@@ -3,7 +3,7 @@ import { customAlphabet } from "nanoid";
 
 import type { InsertLocation } from "../schema/location";
 
-import db from "..";
+import db from "../../db";
 import { location } from "../schema";
 
 const nanoid = customAlphabet("1234567890abcdefghijklmnopqrstuvwxyz", 5);

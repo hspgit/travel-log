@@ -1,5 +1,6 @@
-import { findLocationByName, updateLocationBySlug } from "~/lib/db/queries/location";
-import { InsertLocation } from "~/lib/db/schema";
+import { findLocationByName, updateLocationBySlug } from "~~/lib/db/queries/location";
+import { InsertLocation } from "~~/lib/db/schema";
+
 import defineAuthenticatedEventHandler from "~/utils/define-authenticated-event-handler";
 
 export default defineAuthenticatedEventHandler(async (event) => {
