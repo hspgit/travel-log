@@ -5,14 +5,14 @@ import { CURRENT_LOCATION_LOG_PAGES, CURRENT_LOCATION_PAGES, LOCATION_PAGES } fr
 import { createMapPointFromLocation } from "~/utils/map-points";
 
 export const useLocationStore = defineStore("useLocationStore", () => {
-    const route = useRoute();
+    const router = useRouter();
 
     const { data: locations, status: locationsStatus, refresh: refreshLocations } = useFetch("/api/locations", {
         lazy: true,
     });
 
-    const locationUrlWithSlug = computed(() => `/api/locations/${route.params.slug}`);
-    const locationLogUrlWithSlugAndId = computed(() => `/api/locations/${route.params.slug}/${route.params.id}`);
+    const locationUrlWithSlug = computed(() => `/api/locations/${router.currentRoute.value.params.slug}`);
+    const locationLogUrlWithSlugAndId = computed(() => `/api/locations/${router.currentRoute.value.params.slug}/${router.currentRoute.value.params.id}`);
 
     const {
         data: currentLocation,
@@ -40,7 +40,9 @@ export const useLocationStore = defineStore("useLocationStore", () => {
     const mapStore = useMapStore();
 
     effect(() => {
-        if (locations.value && LOCATION_PAGES.has(route.name?.toString() || "")) {
+        const routeName = router.currentRoute.value.name?.toString() || "";
+
+        if (locations.value && LOCATION_PAGES.has(routeName)) {
             const mapPoints: MapPoint[] = [];
             const sidebarItems: SidebarItem[] = [];
 
@@ -60,7 +62,7 @@ export const useLocationStore = defineStore("useLocationStore", () => {
             sidebarStore.sidebarItems = sidebarItems;
             mapStore.mapPoints = mapPoints;
         }
-        else if (currentLocation.value && CURRENT_LOCATION_PAGES.has(route.name?.toString() || "")) {
+        else if (currentLocation.value && CURRENT_LOCATION_PAGES.has(routeName)) {
             const mapPoints: MapPoint[] = [];
             const sidebarItems: SidebarItem[] = [];
 
@@ -84,11 +86,11 @@ export const useLocationStore = defineStore("useLocationStore", () => {
                 mapStore.mapPoints = [currentLocation.value];
             }
         }
-        else if (currentLocation.value && CURRENT_LOCATION_PAGES.has(route.name?.toString() || "")) {
+        else if (currentLocation.value && CURRENT_LOCATION_PAGES.has(routeName)) {
             sidebarStore.sidebarItems = [];
             mapStore.mapPoints = [currentLocation.value];
         }
-        else if (currentLocationLog.value && CURRENT_LOCATION_LOG_PAGES.has(route.name?.toString() || "")) {
+        else if (currentLocationLog.value && CURRENT_LOCATION_LOG_PAGES.has(routeName)) {
             sidebarStore.sidebarItems = [];
             mapStore.mapPoints = [currentLocationLog.value];
         }

@@ -24,5 +24,6 @@ logs
 !.env.example
 
 local.db*
+sqlite.db*
 
 docker-data
